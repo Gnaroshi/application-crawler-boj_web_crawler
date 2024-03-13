@@ -4,7 +4,7 @@ import sys
 
 program_dir = ""
 # example working directory of Windows
-cur_wd = r"C:\Users\gnaro\OneDrive\바탕 화면\Programming\Solvedac_practice\With_Levels\Temp"
+cur_wd = r"C:\Users\gnaro\OneDrive\바탕 화면\Gnaroshi\practice-algorithm-solvedac\With_Levels\Temp"
 # example working directory of MacOS
 # cur_wd = r"./temp"
 cur_user = "gnaroshi"

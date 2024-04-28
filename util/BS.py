@@ -33,6 +33,26 @@ def get_problem_info(link):
     return 0, None
 
 
+def get_problem_info_detail(problem_id):
+    if not problem_id.isdigit():
+        print("wrong address")
+        return
+    boj_problem_api_url = "https://solved.ac/api/v3/problem/show"
+    query_string = {"query": " ", "problemId": f"{problem_id}"}
+    headers = {"Content-Type": "application/json"}
+    response = requests.request(
+        "GET", boj_problem_api_url, headers=headers, params=query_string
+    )
+    if response.ok:
+        print("-----successfully got problem info-----")
+        temp_problem_json = json.loads(response.text)
+        problem_info_detail = temp_problem_json
+        return int(problem_id), problem_info_detail
+    else:
+        print("failed get problem info")
+    return 0, None
+
+
 def make_file_all(problem_list, program_dir, platform):
     print("current directory:")
     print("##" + os.getcwd() + "##")

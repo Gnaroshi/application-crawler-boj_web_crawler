@@ -1,12 +1,13 @@
-from util.BS import get_problem_info, make_file, make_file_all
+from util.BS import get_problem_info, get_problem_info_detail, make_file, make_file_all
 import os
 import sys
 
 program_dir = ""
 # example working directory of Windows
-cur_wd = r"C:\Users\gnaro\OneDrive\바탕 화면\Gnaroshi\practice-algorithm-solvedac\With_Levels\Temp"
+# cur_wd = r"C:\Users\gnaro\OneDrive\바탕 화면\Gnaroshi\practice-algorithm-solvedac\With_Levels\Temp"
 # example working directory of MacOS
 # cur_wd = r"./temp"
+cur_wd = r"../practice-algorithm-solvedac/temp"
 cur_user = "gnaroshi"
 problem_id = 0
 problem_title = None
@@ -21,8 +22,9 @@ def exec(cur_wd, cur_user, problem_id, problem_title, problem_list, platform):
         print("4: clear selected boj problem")
         print("5: make file")
         print("6: show selected boj problems")
-        print("7: print problems with time taken")
-        print("8: quit")
+        print("7: show selected boj problems with detail")
+        print("8: print problems with time taken")
+        print("9: quit")
         print("-" * 60)
         n = int(input())
         if n == 0:
@@ -158,6 +160,45 @@ def exec(cur_wd, cur_user, problem_id, problem_title, problem_list, platform):
                     print("undecidable")
 
         elif n == 7:
+            info_detail_attr = [
+                "titleKo",
+                "titles",
+                "problemId",
+                "isSolvable",
+                "isPartial",
+                "level",
+                "tags",
+            ]
+            if len(problem_list) > 1:
+                print("listed problem size: " + str(len(problem_list)))
+                cnt = 1
+                for i, t in problem_list:
+                    print(f"{str(cnt):=^30}")
+                    problem_id_detail, problem_info_detail = get_problem_info_detail(
+                        str(i)
+                    )
+                    temp_info_detail = {}
+                    for i in info_detail_attr:
+                        temp_info_detail[i] = problem_info_detail.get(i)
+                    for k in temp_info_detail:
+                        print(k + ": ")
+                        print(temp_info_detail[k])
+                    cnt += 1
+            elif problem_id != 0 and problem_title != None:
+                print("there is one selected boj problem")
+                problem_id_detail, problem_info_detail = get_problem_info_detail(
+                    str(problem_id)
+                )
+                temp_info_detail = {}
+                for i in info_detail_attr:
+                    temp_info_detail[i] = problem_info_detail.get(i)
+                for k in temp_info_detail:
+                    print(k + ": " + temp_info_detail[k])
+            else:
+                print("none of selected boj problem")
+                continue
+
+        elif n == 8:
             if len(problem_list) > 1:
                 print("input times (" + str(len(problem_list)) + ")")
                 time_list = []
@@ -171,7 +212,7 @@ def exec(cur_wd, cur_user, problem_id, problem_title, problem_list, platform):
             else:
                 print("none of selected boj problem")
 
-        elif n == 8:
+        elif n == 9:
             print("-" * 60)
             print("program terminate")
             print("-" * 60)
